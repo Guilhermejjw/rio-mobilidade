@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api-rio/:path*",
+      "destination": "https://dados.mobilidade.rio/:path*"
+    }
+  ]
+}
