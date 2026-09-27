@@ -1,13 +1,27 @@
 <!doctype html>
-<html lang="en">
+<!-- Define o idioma principal da página como Português do Brasil e bloqueia traduções automáticas -->
+<html lang="pt-BR" class="notranslate" translate="no">
   <head>
+    <!-- Define a codificação de caracteres para suportar acentos e caracteres especiais -->
     <meta charset="UTF-8" />
+
+    <!-- Ícone que aparece na aba do navegador -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Configura a escala da tela para dispositivos móveis (responsividade) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>projeto-mobilidade-urbana</title>
+
+    <!-- Meta tag adicional para impedir que o tradutor do Google altere o layout no celular -->
+    <meta name="google" content="notranslate" />
+
+    <!-- Título que aparece na aba do navegador -->
+    <title>Rio Mobilidade - GPS em Tempo Real</title>
   </head>
   <body>
+    <!-- Elemento raiz onde o React injeta toda a aplicação -->
     <div id="root"></div>
+
+    <!-- Ponto de entrada do JavaScript que inicializa o React -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
