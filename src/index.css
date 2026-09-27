@@ -25,13 +25,33 @@ html, body, #root {
   width: 100vw;
 }
 
-/* Área central que divide a barra lateral e o mapa */
+/* Área central que divide a barra lateral e o mapa no Desktop */
 .main-content {
   display: flex;
+  flex-direction: row; /* Lado a lado no PC */
   flex: 1;
   position: relative;
   overflow: hidden;
   height: calc(100vh - 60px); /* Desconta a altura do cabeçalho */
+}
+
+/* Painel de busca no Desktop */
+.search-bar {
+  width: 320px;
+  flex-shrink: 0;
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+/* Container do mapa */
+.map-wrapper {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 /* Força o container do Leaflet a preencher todo o espaço disponível */
@@ -39,4 +59,31 @@ html, body, #root {
   width: 100%;
   height: 100%;
   z-index: 1;
+}
+
+/* 📱 RESPONSIVIDADE PARA TELEMÓVEIS (Telas até 768px) */
+@media (max-width: 768px) {
+  html, body, #root {
+    overflow-x: hidden;
+    overflow-y: auto; /* Permite rolar a página verticalmente no telemóvel */
+  }
+
+  .main-content {
+    flex-direction: column; /* Empilha: Busca no topo, Mapa embaixo */
+    height: auto;
+    min-height: calc(100vh - 60px);
+    overflow: visible;
+  }
+
+  .search-bar {
+    width: 100%; /* A barra de busca ocupa toda a largura da tela */
+    padding: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .map-wrapper {
+    width: 100%;
+    height: 60vh; /* Define uma altura visível e proporcional para o mapa no telemóvel */
+    min-height: 400px;
+  }
 }
