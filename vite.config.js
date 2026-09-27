@@ -4,6 +4,10 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
 
+  build: {
+    sourcemap: false, // Desativa os arquivos de mapeamento no F12
+  },
+  
   server: {
     proxy: {
       // Tudo que começar com /api-rio será encaminhado
