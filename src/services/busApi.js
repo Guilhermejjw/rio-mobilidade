@@ -1,6 +1,4 @@
-// Endereço usado pelo React para acessar o proxy do Vite.
-// O navegador acessa o próprio Vite, e o Vite encaminha
-// a requisição para o servidor do Data.Rio.
+// Endereço usado pelo React para acessar o proxy do Vite/Vercel.
 const API_URL = '/api-rio/sppo/conecta/gps';
 
 /**
@@ -30,8 +28,11 @@ export async function getBuses(lineFilter = '') {
 
     console.log('Consultando API:', url);
 
-    // Faz a requisição através do proxy do Vite.
-    const response = await fetch(url);
+    // Faz a requisição omitindo cookies para evitar bloqueio no mobile
+    const response = await fetch(url, {
+      method: 'GET',
+      credentials: 'omit', // IGNORA cookies de terceiros/sessão
+    });
 
     // Se o servidor responder com erro, mostramos o status.
     if (!response.ok) {
@@ -48,9 +49,8 @@ export async function getBuses(lineFilter = '') {
 
     console.log('Ônibus recebidos:', buses.length);
 
-    // Se o usuário digitou uma linha,
-    // filtramos pelo campo "servico".
-    if (lineFilter.trim() !== '') {
+    // Se o usuário digitou uma linha, filtramos pelo campo "servico".
+    if (lineFilter && lineFilter.trim() !== '') {
       const filtro = lineFilter.trim().toLowerCase();
 
       return buses.filter((bus) => {
@@ -62,8 +62,7 @@ export async function getBuses(lineFilter = '') {
       });
     }
 
-    // Se nenhuma linha foi digitada,
-    // mostramos todos os ônibus recebidos.
+    // Se nenhuma linha foi digitada, retornamos a lista recebida.
     return buses;
 
   } catch (error) {
@@ -72,7 +71,7 @@ export async function getBuses(lineFilter = '') {
       error
     );
 
-    // Em caso de erro, retornamos uma lista vazia.
+    // Em caso de erro, retornamos uma lista vazia para não quebrar a tela.
     return [];
   }
 }
