@@ -18,7 +18,7 @@ export function App() {
   const [searchLine, setSearchLine] = useState('');
 
   // Indica se os dados estão sendo carregados.
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
 
   // Recebe os registros da API e mantém
@@ -94,34 +94,40 @@ export function App() {
   };
 
 
-  // Executa a busca quando a página é carregada
-  // e depois atualiza os dados a cada 30 segundos.
+  // Executa a busca SOMENTE quando o usuário digita uma linha.
+  // Atualiza os dados a cada 30 segundos enquanto houver uma linha digitada.
   useEffect(() => {
 
-    // Faz a primeira consulta imediatamente.
+    // 1. Se o campo de busca estiver vazio, limpa os ônibus e NÃO chama a API.
+    if (searchLine.trim() === '') {
+      setVehicles([]);
+      setLoading(false);
+      return;
+    }
+
+    // 2. Faz a primeira consulta imediatamente ao digitar.
     fetchVehicles();
 
-    // Cria um temporizador de 30 segundos.
+    // 3. Cria um temporizador de 30 segundos para atualizar em tempo real a linha buscada.
     const interval = setInterval(() => {
       fetchVehicles();
     }, 30000);
 
-    // Cancela o temporizador quando o componente é desmontado.
+    // Cancela o temporizador quando o usuário muda a busca ou desfaz o componente.
     return () => {
       clearInterval(interval);
     };
 
-  }, []);
+  }, [searchLine]); // <-- Escuta as mudanças no campo de busca
 
 
   // Filtra os ônibus que já estão na memória
   // de acordo com a linha digitada.
   const filteredVehicles = vehicles.filter((bus) => {
 
-    // Se o campo estiver vazio,
-    // mostra todos os veículos.
+    // Se o campo estiver vazio, não mostra nenhum veículo.
     if (searchLine.trim() === '') {
-      return true;
+      return false;
     }
 
     // Pega o número da linha fornecido pela API.
