@@ -1,20 +1,25 @@
-/* Botão Flutuante do GPS */
+/* Botão Flutuante do GPS com posição ajustada para Mobile */
 .location-btn {
   position: absolute;
-  bottom: 90px;
-  right: 12px;
+  bottom: 110px; /* Eleva o botão para não colar na borda nem cobrir atribuições do mapa */
+  right: 16px;  /* Dá um recuo suave em relação à borda direita */
   z-index: 1000;
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   background-color: #ffffff;
   border: none;
   border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  font-size: 20px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+  font-size: 22px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.location-btn:active {
+  transform: scale(0.92); /* Efeito de toque leve no celular */
 }
 
 /* Ponto azul pulsante da posição */
